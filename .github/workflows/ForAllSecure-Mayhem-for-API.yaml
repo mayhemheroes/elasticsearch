@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
@@ -19,7 +19,6 @@ jobs:
         pushd build/distribution/local/elasticsearch-*/bin/
         ELASTIC_PASSWORD=password ./elasticsearch -E discovery.type=single-node -E xpack.security.enabled=false &
         for i in {1..90} ; do curl --silent http://localhost:9200/ -H 'Authorization: Basic ZWxhc3RpYzpwYXNzd29yZA==' && echo API up && break; sleep 5s; done
-
 
     - name: Run Mayhem for API to check for vulnerabilities
       uses: ForAllSecure/mapi-action@v1
